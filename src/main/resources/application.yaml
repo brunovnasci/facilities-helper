@@ -1,0 +1,5 @@
+spring:
+  data.mongobd:
+    host: localhost
+    port: 27017
+    database: banheiro
