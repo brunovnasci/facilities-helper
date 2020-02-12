@@ -2,7 +2,9 @@ package com.estudo.helper.facilities.controller.handler;
 
 import com.estudo.helper.facilities.controller.exception.*;
 import com.estudo.helper.facilities.controller.model.ErrorResponse;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.ResponseStatus;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
@@ -36,7 +38,14 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler({ThePasswordIsWrongException.class})
     @ResponseStatus(HttpStatus.FORBIDDEN)
-    public ErrorResponse handlerPasswordIsWrong(final ThePasswordIsWrongException e){
+    public ErrorResponse handlerPasswordIsWrong(final ThePasswordIsWrongException e) {
         return new ErrorResponse("A senha esta errada!");
+    }
+
+    @ExceptionHandler(NotAuthorizedException.class)
+    public ResponseEntity<ErrorResponse> handlerNotAuthorized(final  NotAuthorizedException e) {
+        HttpHeaders responseHeader = new HttpHeaders();
+        responseHeader.set("HttpHeaders.WWW_AUTHENTICATE", "Token");
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).headers(responseHeader).body(new ErrorResponse("Nao permitido!"));
     }
 }

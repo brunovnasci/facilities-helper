@@ -37,8 +37,8 @@ public class PersonController {
     }
 
     @DeleteMapping("/{email}")
-    public ResponseEntity<String> deletePerson(@PathVariable(value = "email") String email, @RequestHeader(value = "authorization") String header) throws PersonNotFoundException {
-        removePersonUseCase.remove(email);
+    public ResponseEntity<String> deletePerson(@PathVariable(value = "email") String email, @RequestHeader(value = "Authorization") String header) throws Exception {
+        removePersonUseCase.remove(email, header);
         return new ResponseEntity<>("", HttpStatus.NO_CONTENT);
     }
 }

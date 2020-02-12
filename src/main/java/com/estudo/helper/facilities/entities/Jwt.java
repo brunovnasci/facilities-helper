@@ -35,7 +35,7 @@ public class Jwt {
 
     public Claims descodificar(String jwt) {
         return Jwts.parser()
-                .setSigningKey(key)
+                .setSigningKey(DatatypeConverter.parseBase64Binary(key))
                 .parseClaimsJws(jwt).getBody();
     }
 }
