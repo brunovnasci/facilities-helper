@@ -1,5 +1,6 @@
 package com.estudo.helper.facilities.controller;
 
+import com.estudo.helper.facilities.controller.annotation.LoginRequired;
 import com.estudo.helper.facilities.controller.exception.GenericServerException;
 import com.estudo.helper.facilities.controller.exception.PersonNotFoundException;
 import com.estudo.helper.facilities.controller.exception.ThePasswordIsWrongException;
@@ -37,6 +38,7 @@ public class PersonController {
     }
 
     @DeleteMapping("/{email}")
+    @LoginRequired
     public ResponseEntity<String> deletePerson(@PathVariable(value = "email") String email, @RequestHeader(value = "Authorization") String header) throws Exception {
         removePersonUseCase.remove(email, header);
         return new ResponseEntity<>("", HttpStatus.NO_CONTENT);

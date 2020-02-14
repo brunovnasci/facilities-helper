@@ -46,6 +46,23 @@ public class CustomExceptionHandler {
     public ResponseEntity<ErrorResponse> handlerNotAuthorized(final  NotAuthorizedException e) {
         HttpHeaders responseHeader = new HttpHeaders();
         responseHeader.set("HttpHeaders.WWW_AUTHENTICATE", "Token");
-        return ResponseEntity.status(HttpStatus.UNAUTHORIZED).headers(responseHeader).body(new ErrorResponse("Nao permitido!"));
+        return ResponseEntity.status(HttpStatus.UNAUTHORIZED)
+                .headers(responseHeader)
+                .body(new ErrorResponse("Nao permitido!"));
+    }
+
+    @ExceptionHandler(MissingHeaderFieldException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorResponse handlerMissingHeaderField(final MissingHeaderFieldException e){
+        return new ErrorResponse("Falta campos no header!");
+    }
+
+    @ExceptionHandler(BearerAutenticationException.class)
+    public ResponseEntity<ErrorResponse> handlerBearerAutentication(final BearerAutenticationException e){
+        HttpHeaders responseHeader = new HttpHeaders();
+        responseHeader.set("HttpHeaders.WWW_AUTHENTICATE","Bearer");
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST)
+                .headers(responseHeader)
+                .body(new ErrorResponse("Faltando prefixo Bearer"));
     }
 }
