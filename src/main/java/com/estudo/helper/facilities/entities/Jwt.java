@@ -10,7 +10,6 @@ import lombok.Setter;
 
 import javax.crypto.spec.SecretKeySpec;
 import javax.xml.bind.DatatypeConverter;
-import java.security.Key;
 
 @AllArgsConstructor
 @NoArgsConstructor
@@ -22,15 +21,12 @@ public class Jwt {
     private String issuer = "teste";
 
     public String codificar(Claims claims) {
-        SignatureAlgorithm signatureAlgorithm = SignatureAlgorithm.HS256;
-        byte[] apiKeySecretBytes = DatatypeConverter.parseBase64Binary(key);
-        Key signingKey = new SecretKeySpec(apiKeySecretBytes, signatureAlgorithm.getJcaName());
-
         return Jwts.builder()
                 .setClaims(claims)
                 .setSubject(subject)
                 .setIssuer(issuer)
-                .signWith(signatureAlgorithm, signingKey).compact();
+                .signWith(SignatureAlgorithm.HS256, new SecretKeySpec(DatatypeConverter.parseBase64Binary(key),
+                        SignatureAlgorithm.HS256.getJcaName())).compact();
     }
 
     public Claims descodificar(String jwt) {
