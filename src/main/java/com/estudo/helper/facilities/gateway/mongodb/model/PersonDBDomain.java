@@ -9,7 +9,7 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import java.time.Instant;
 import java.util.Date;
 
-@Document(collection = "user")
+@Document(collection = "person")
 @Data
 @AllArgsConstructor
 @NoArgsConstructor

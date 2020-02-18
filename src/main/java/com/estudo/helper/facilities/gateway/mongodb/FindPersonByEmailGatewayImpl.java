@@ -18,7 +18,7 @@ public class FindPersonByEmailGatewayImpl implements FindPersonByEmailGateway {
     @Override
     public Optional<PersonDBDomain> findUserByEmail(String email) throws GenericServerException {
         try {
-            return Optional.ofNullable(personRepository.findUserByEmail(email));
+            return Optional.ofNullable(personRepository.findPersonByEmail(email));
         }catch (Exception e){
             throw new GenericServerException("Nao foi possivel...", e);
         }
