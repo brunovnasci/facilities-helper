@@ -11,6 +11,7 @@ import com.estudo.helper.facilities.controller.model.PersonResponse;
 import com.estudo.helper.facilities.entities.Person;
 import com.estudo.helper.facilities.usecase.CreateNewPersonUseCase;
 import com.estudo.helper.facilities.usecase.GeneratePersonJWTUseCase;
+import com.estudo.helper.facilities.usecase.GetPersonByIdUseCase;
 import com.estudo.helper.facilities.usecase.RemovePersonUseCase;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -25,6 +26,12 @@ public class PersonController {
     private final CreateNewPersonUseCase createNewPersonUseCase;
     private final RemovePersonUseCase removePersonUseCase;
     private final GeneratePersonJWTUseCase generatePersonJWTUseCase;
+    private final GetPersonByIdUseCase getPersonById;
+
+    @GetMapping("/{id}")
+    public ResponseEntity<PersonResponse> getPerson(@PathVariable(value = "id") String id, @RequestHeader("Authorization") String jwt) throws PersonNotFoundException {
+        return new ResponseEntity<>(getPersonById.execute(id),HttpStatus.OK);
+    }
 
     @PostMapping
     public ResponseEntity<PersonResponse> postPerson(@RequestBody PersonRequest request) throws GenericServerException {
@@ -39,8 +46,8 @@ public class PersonController {
 
     @DeleteMapping("/{email}")
     @LoginRequired
-    public ResponseEntity<String> deletePerson(@PathVariable(value = "email") String email, @RequestHeader(value = "Authorization") String header) throws Exception {
-        removePersonUseCase.remove(email, header);
+    public ResponseEntity<String> deletePerson(@PathVariable(value = "email") String email, @RequestHeader(value = "Authorization") String jwt) throws Exception {
+        removePersonUseCase.remove(email, jwt);
         return new ResponseEntity<>("", HttpStatus.NO_CONTENT);
     }
 }
