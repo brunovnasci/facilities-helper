@@ -12,5 +12,6 @@ public class Person {
     private String sobrenome;
     private String email;
     private String senha;
+    private Role role;
 
 }

@@ -1,5 +1,6 @@
 package com.estudo.helper.facilities.gateway.mongodb.model;
 
+import com.estudo.helper.facilities.entities.Role;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ public class PersonDBDomain {
     private String sobrenome;
     private String email;
     private String senha;
+    private Role role;
     private Instant dataDeCriacao = new Date().toInstant();
 
 }

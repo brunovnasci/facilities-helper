@@ -9,6 +9,7 @@ import com.estudo.helper.facilities.controller.model.JwtResponse;
 import com.estudo.helper.facilities.controller.model.PersonRequest;
 import com.estudo.helper.facilities.controller.model.PersonResponse;
 import com.estudo.helper.facilities.entities.Person;
+import com.estudo.helper.facilities.entities.Role;
 import com.estudo.helper.facilities.usecase.CreateNewPersonUseCase;
 import com.estudo.helper.facilities.usecase.GeneratePersonJWTUseCase;
 import com.estudo.helper.facilities.usecase.GetPersonByIdUseCase;
@@ -30,12 +31,12 @@ public class PersonController {
 
     @GetMapping("/{id}")
     public ResponseEntity<PersonResponse> getPerson(@PathVariable(value = "id") String id, @RequestHeader("Authorization") String jwt) throws PersonNotFoundException {
-        return new ResponseEntity<>(getPersonById.execute(id),HttpStatus.OK);
+        return new ResponseEntity<>(getPersonById.execute(id), HttpStatus.OK);
     }
 
-    @PostMapping
-    public ResponseEntity<PersonResponse> postPerson(@RequestBody PersonRequest request) throws GenericServerException {
-        return new ResponseEntity<>(createNewPersonUseCase.execute(Translator.translate(request, Person.class)), HttpStatus.OK);
+    @PostMapping("/{role}")
+    public ResponseEntity<PersonResponse> postPerson(@RequestBody PersonRequest request, @PathVariable(value = "role") Role role) throws GenericServerException {
+        return new ResponseEntity<>(createNewPersonUseCase.execute(Translator.translate(request, Person.class), role), HttpStatus.OK);
     }
 
 
