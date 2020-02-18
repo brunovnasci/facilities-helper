@@ -65,4 +65,9 @@ public class CustomExceptionHandler {
                 .headers(responseHeader)
                 .body(new ErrorResponse("Faltando prefixo Bearer"));
     }
+
+    @ExceptionHandler(PersonIsNotCleanerException.class)
+    public ErrorResponse handlerPersonIsNotCleaner(final PersonIsNotCleanerException e){
+        return new ErrorResponse("Somente faxineiros podem marcar alertas como feito!");
+    }
 }
