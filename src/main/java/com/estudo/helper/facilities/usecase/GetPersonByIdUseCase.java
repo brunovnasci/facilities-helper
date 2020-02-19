@@ -17,7 +17,7 @@ public class GetPersonByIdUseCase {
     private final GetPersonByIdGateway getPersonByIdGateway;
 
     public PersonResponse execute(String id) throws PersonNotFoundException {
-        Optional<PersonDBDomain> person = getPersonByIdGateway.get(id);
+        Optional<PersonDBDomain> person = getPersonByIdGateway.execute(id);
         if(!person.isPresent()){
             throw new PersonNotFoundException("Pessoa nao foi achada");
         }

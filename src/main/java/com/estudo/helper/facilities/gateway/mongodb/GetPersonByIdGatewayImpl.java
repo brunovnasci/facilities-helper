@@ -15,7 +15,7 @@ public class GetPersonByIdGatewayImpl implements GetPersonByIdGateway {
     private final PersonRepository personRepository;
 
     @Override
-    public Optional<PersonDBDomain> get(String id) {
+    public Optional<PersonDBDomain> execute(String id) {
         return personRepository.findById(id);
     }
 }
