@@ -32,7 +32,8 @@ public class AlertController {
     private final UpdateAlertStatusUseCase updateAlertStatusUseCase;
 
     @GetMapping
-    public ResponseEntity<List<AlertResponse>> getAlerts(){
+    public ResponseEntity<List<AlertResponse>> getAlerts(@RequestHeader("Authorization") String jwt) throws NotAuthorizedException, PersonNotFoundException, GenericServerException {
+        validateTokenUseCase.validate(jwt);
         return new ResponseEntity<>(getAllAlertsUseCase.execute(), HttpStatus.OK);
     }
 
