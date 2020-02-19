@@ -22,8 +22,8 @@ public class UpdateAlertStatusUseCase {
         verifyIfPersonIsCleanerUseCase.verify(personId);
         Alert alert = new Alert();
         alert.setId(alertId);
-        alert.setDataDeConclusao(LocalDateTime.now().toInstant(OffsetDateTime.now().getOffset()));
         alert.setEstaFeita(alertStatus);
+        alert.setDataDeConclusao(alertStatus ? LocalDateTime.now().toInstant(OffsetDateTime.now().getOffset()) : null);
 
         return Translator.translate(updateAlertStatusGateway.update(alert), AlertResponse.class);
     }
