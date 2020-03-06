@@ -35,6 +35,7 @@ public class GeneratePersonJWTUseCase {
         claims.put("id", userByEmail.getId());
         claims.put("email", userByEmail.getEmail());
 
-        return new JwtResponse(jwt.codificar(claims));
+        Jwt.JwtTokens jwtTokens = jwt.codificar(claims);
+        return new JwtResponse(jwtTokens.getJwt(), jwtTokens.getJwtRefresh());
     }
 }
