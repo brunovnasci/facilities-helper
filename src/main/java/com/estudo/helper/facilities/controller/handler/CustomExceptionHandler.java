@@ -32,14 +32,14 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler({PersonNotFoundException.class})
     @ResponseStatus(HttpStatus.NOT_FOUND)
-    public ErrorResponse handlerCanNotRemovePerson(final PersonNotFoundException e) {
+    public ErrorResponse handlerCanNotFindPerson(final PersonNotFoundException e) {
         return new ErrorResponse("Pessoa nao foi achada!");
     }
 
     @ExceptionHandler({ThePasswordIsWrongException.class})
     @ResponseStatus(HttpStatus.FORBIDDEN)
     public ErrorResponse handlerPasswordIsWrong(final ThePasswordIsWrongException e) {
-        return new ErrorResponse("A senha esta errada!");
+        return new ErrorResponse("Crendenciais erradas!");
     }
 
     @ExceptionHandler(NotAuthorizedException.class)
@@ -68,6 +68,24 @@ public class CustomExceptionHandler {
 
     @ExceptionHandler(PersonIsNotCleanerException.class)
     public ErrorResponse handlerPersonIsNotCleaner(final PersonIsNotCleanerException e){
-        return new ErrorResponse("Somente faxineiros podem marcar alertas como feito!");
+        return new ErrorResponse("Somente faxineiros podem fazer esta acao!");
+    }
+
+    @ExceptionHandler(ExpiredJwtException.class)
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ErrorResponse handlerJwtExpired(final ExpiredJwtException e){
+        return new ErrorResponse("Jwt expirado!");
+    }
+
+    @ExceptionHandler(TokenException.class)
+    @ResponseStatus(HttpStatus.FORBIDDEN)
+    public ErrorResponse handlerJwt(final TokenException e){
+        return new ErrorResponse("Problemas no JWT!");
+    }
+
+    @ExceptionHandler({AlertNotFoundException.class})
+    @ResponseStatus(HttpStatus.NOT_FOUND)
+    public ErrorResponse handlerCanNotFindAlert(final AlertNotFoundException e) {
+        return new ErrorResponse("Alerta nao foi achado!");
     }
 }
