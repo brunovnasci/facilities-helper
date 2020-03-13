@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 public class AlertRequest {
-    private int andar;
+    private String andar;
     private String generoBanheiro;
     private String mensagem;
     private String person;

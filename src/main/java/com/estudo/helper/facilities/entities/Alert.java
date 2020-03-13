@@ -11,7 +11,7 @@ import java.time.Instant;
 @NoArgsConstructor
 public class Alert {
     private String id;
-    private int andar;
+    private String andar;
     private String generoBanheiro;
     private String mensagem;
     private boolean estaFeita;

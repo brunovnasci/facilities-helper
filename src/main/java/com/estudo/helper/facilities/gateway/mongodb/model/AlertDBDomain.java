@@ -19,7 +19,7 @@ public class AlertDBDomain {
     public static final String AMERICA_SAO_PAULO = "America/Sao_Paulo";
     @Id
     private String id;
-    private int andar;
+    private String andar;
     private String generoBanheiro;
     private String mensagem;
     private String person;

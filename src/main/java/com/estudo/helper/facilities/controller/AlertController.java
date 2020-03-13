@@ -29,7 +29,10 @@ public class AlertController {
     @GetMapping
     public ResponseEntity<List<AlertResponse>> getAlerts(@RequestHeader("Authorization") String jwt) throws NotAuthorizedException, PersonNotFoundException, GenericServerException, ExpiredJwtException, TokenException, PersonIsNotCleanerException {
         String personId = validateTokenUseCase.validate(jwt);
-        return new ResponseEntity<>(getAllAlertsUseCase.execute(personId), HttpStatus.OK);
+        List<AlertResponse> listaOrdenada = getAllAlertsUseCase.execute(personId);
+        listaOrdenada.sort(AlertResponse::compare);
+
+        return new ResponseEntity<>(listaOrdenada, HttpStatus.OK);
     }
 
     @GetMapping("/{id}")
