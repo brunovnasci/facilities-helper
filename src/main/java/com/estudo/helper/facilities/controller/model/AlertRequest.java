@@ -1,5 +1,6 @@
 package com.estudo.helper.facilities.controller.model;
 
+import com.estudo.helper.facilities.entities.Person;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,6 @@ public class AlertRequest {
     private String andar;
     private String comodo;
     private String mensagem;
-    private String person;
+    private PersonResponse person;
 
 }

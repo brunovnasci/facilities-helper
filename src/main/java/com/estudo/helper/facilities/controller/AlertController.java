@@ -43,8 +43,7 @@ public class AlertController {
 
     @PostMapping
     public ResponseEntity<AlertResponse> postAlert(@RequestBody AlertRequest request, @RequestHeader("Authorization") String jwt) throws NotAuthorizedException, PersonNotFoundException, GenericServerException, ExpiredJwtException, TokenException {
-        request.setPerson(validateTokenUseCase.validate(jwt));
-        return new ResponseEntity<>(createNewAlertUseCase.execute(Translator.translate(request, Alert.class)), HttpStatus.OK);
+        return new ResponseEntity<>(createNewAlertUseCase.execute(Translator.translate(request, Alert.class), validateTokenUseCase.validate(jwt)), HttpStatus.OK);
     }
 
     @PutMapping("{id}/{status}")

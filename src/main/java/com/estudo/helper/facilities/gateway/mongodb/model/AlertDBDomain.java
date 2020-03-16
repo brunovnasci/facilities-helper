@@ -1,5 +1,7 @@
 package com.estudo.helper.facilities.gateway.mongodb.model;
 
+import com.estudo.helper.facilities.controller.model.PersonResponse;
+import com.estudo.helper.facilities.entities.Person;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -22,7 +24,7 @@ public class AlertDBDomain {
     private String andar;
     private String comodo;
     private String mensagem;
-    private String person;
+    private PersonResponse person;
     private ZoneId zonedId = ZoneId.of(AMERICA_SAO_PAULO);
     private Instant dataDeCriacao = LocalDateTime.now().toInstant(OffsetDateTime.now().toLocalDateTime().atZone(zonedId).getOffset());
     private boolean estaFeita = false;
