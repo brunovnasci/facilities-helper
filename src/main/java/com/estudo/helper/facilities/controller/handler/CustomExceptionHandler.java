@@ -15,7 +15,7 @@ public class CustomExceptionHandler {
     @ExceptionHandler({UserAlreadyExistAuthenticationException.class})
     @ResponseStatus(HttpStatus.CONFLICT)
     public ErrorResponse handleAlreadyExistUser(final UserAlreadyExistAuthenticationException e) {
-        return new ErrorResponse("Usuario ja cadastrado!");
+        return new ErrorResponse("Usuario com este email ja cadastrado!");
     }
 
     @ExceptionHandler({EmailFormatIsNotValidException.class})
@@ -87,5 +87,11 @@ public class CustomExceptionHandler {
     @ResponseStatus(HttpStatus.NOT_FOUND)
     public ErrorResponse handlerCanNotFindAlert(final AlertNotFoundException e) {
         return new ErrorResponse("Alerta nao foi achado!");
+    }
+
+    @ExceptionHandler({CredentialsAreNotValidException.class})
+    @ResponseStatus(HttpStatus.UNAUTHORIZED)
+    public ErrorResponse handlerCredentialsWrong(final CredentialsAreNotValidException e) {
+        return new ErrorResponse("Credenciais erradas!");
     }
 }

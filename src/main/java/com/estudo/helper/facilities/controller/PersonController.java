@@ -43,7 +43,7 @@ public class PersonController {
 
 
     @PostMapping("/jwt")
-    public ResponseEntity<JwtResponse> getJwt(@RequestBody PersonRequest request) throws ThePasswordIsWrongException, PersonNotFoundException, GenericServerException {
+    public ResponseEntity<JwtResponse> getJwt(@RequestBody PersonRequest request) throws GenericServerException, CredentialsAreNotValidException {
         return new ResponseEntity<>(generatePersonJWTUseCase.execute(Translator.translate(request, Person.class)), HttpStatus.OK);
     }
 

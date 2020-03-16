@@ -1,5 +1,6 @@
 package com.estudo.helper.facilities.usecase;
 
+import com.estudo.helper.facilities.controller.exception.CredentialsAreNotValidException;
 import com.estudo.helper.facilities.controller.exception.GenericServerException;
 import com.estudo.helper.facilities.controller.exception.PersonNotFoundException;
 import com.estudo.helper.facilities.controller.exception.ThePasswordIsWrongException;
@@ -23,12 +24,11 @@ public class GeneratePersonJWTUseCase {
     private final FindPersonByEmailGateway findPersonByEmailGateway;
     private final Jwt jwt;
 
-    public JwtResponse execute(Person person) throws ThePasswordIsWrongException, PersonNotFoundException, GenericServerException {
-        verifyIfEmailIsValidUseCase.execute(person.getEmail());
-        PersonDBDomain userByEmail = findPersonByEmailGateway.findUserByEmail(person.getEmail()).orElseThrow(() -> new PersonNotFoundException("Pessoa nao foi achada!"));
+    public JwtResponse execute(Person person) throws GenericServerException, CredentialsAreNotValidException {
+        PersonDBDomain userByEmail = findPersonByEmailGateway.findUserByEmail(person.getEmail()).orElseThrow(() -> new CredentialsAreNotValidException("Credencial errada!"));
 
         if (!createDelegatingPasswordEncoder().matches(person.getSenha(), userByEmail.getSenha())) {
-            throw new ThePasswordIsWrongException("A senha nao esta correta");
+            throw new CredentialsAreNotValidException("Credencial errada!");
         }
 
         Claims claims = claims();
