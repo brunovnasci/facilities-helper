@@ -25,6 +25,7 @@ public class AlertController {
     private final ValidateTokenUseCase validateTokenUseCase;
     private final UpdateAlertStatusUseCase updateAlertStatusUseCase;
     private final GetAlertByIdUseCase getAlertByIdUseCase;
+    private final GetAlertByPersonEmailUseCase getAlertByPersonEmailUseCase;
 
     @GetMapping
     public ResponseEntity<List<AlertResponse>> getAlerts(@RequestHeader("Authorization") String jwt) throws NotAuthorizedException, PersonNotFoundException, GenericServerException, ExpiredJwtException, TokenException, PersonIsNotCleanerException {
@@ -39,6 +40,12 @@ public class AlertController {
     public ResponseEntity<AlertResponse> getAlertsById(@RequestHeader("Authorization") String jwt, @PathVariable("id") String alertId) throws NotAuthorizedException, PersonNotFoundException, GenericServerException, ExpiredJwtException, TokenException, AlertNotFoundException {
         validateTokenUseCase.validate(jwt);
         return new ResponseEntity<>(getAlertByIdUseCase.execute(alertId), HttpStatus.OK);
+    }
+
+    @GetMapping("/person")
+    public ResponseEntity<List<AlertResponse>> getAlertsByPersonEmail(@RequestHeader("Authorization") String jwt) throws NotAuthorizedException, PersonNotFoundException, GenericServerException, ExpiredJwtException, TokenException {
+        String personId = validateTokenUseCase.validate(jwt);
+        return new ResponseEntity<>(getAlertByPersonEmailUseCase.execute(personId), HttpStatus.OK);
     }
 
     @PostMapping
