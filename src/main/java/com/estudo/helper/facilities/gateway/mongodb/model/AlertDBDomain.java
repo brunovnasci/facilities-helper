@@ -20,7 +20,7 @@ public class AlertDBDomain {
     @Id
     private String id;
     private String andar;
-    private String generoBanheiro;
+    private String comodo;
     private String mensagem;
     private String person;
     private ZoneId zonedId = ZoneId.of(AMERICA_SAO_PAULO);

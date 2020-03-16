@@ -12,7 +12,7 @@ import java.time.Instant;
 public class Alert {
     private String id;
     private String andar;
-    private String generoBanheiro;
+    private String comodo;
     private String mensagem;
     private boolean estaFeita;
     private Instant dataDeConclusao;

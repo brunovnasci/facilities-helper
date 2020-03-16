@@ -14,7 +14,7 @@ import java.time.Instant;
 public class AlertResponse {
     private String id;
     private String andar;
-    private String generoBanheiro;
+    private String comodo;
     private String mensagem;
     private String person;
     private Instant dataDeCriacao;
