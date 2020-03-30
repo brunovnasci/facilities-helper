@@ -45,7 +45,9 @@ public class AlertController {
     @GetMapping("/person")
     public ResponseEntity<List<AlertResponse>> getAlertsByPersonEmail(@RequestHeader("Authorization") String jwt) throws NotAuthorizedException, PersonNotFoundException, GenericServerException, ExpiredJwtException, TokenException {
         String personId = validateTokenUseCase.validate(jwt);
-        return new ResponseEntity<>(getAlertByPersonEmailUseCase.execute(personId), HttpStatus.OK);
+        List<AlertResponse> listaOrdenada = getAlertByPersonEmailUseCase.execute(personId);
+        listaOrdenada.sort(AlertResponse::compare);
+        return new ResponseEntity<>(listaOrdenada, HttpStatus.OK);
     }
 
     @PostMapping
